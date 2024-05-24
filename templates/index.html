@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data engineering fun</title>
+</head>
+<body>
+    <h1>Data engineering fun</h1>
+    <p>Hello and welcome to the game!<br />
+        The goal is to get my telegram username.<br />
+        In the data below, there may or may not be my telegram username,
+        and the way of finding out is that the real one has<br />
+        FactorOne * FactorTwo = Product. On every other row,
+        the presented product of the two factors is incorrect.<br />
+        This data is updated hourly.<br />
+        Per week, my telegram username will only be in one of
+        these hourly chunks of data.<br /><br />
+        When you find my telegram username, message me using it!
+    </p>
+    <table>
+        <tr>
+            <th>Telegram Name</th>
+            <th>Factor One</th>
+            <th>Factor Two</th>
+            <th>Product</th>
+        </tr>
+        {{range .}}
+        <tr>
+            <td>{{.TelegramName}}</td>
+            <td>{{.FactorOne}}</td>
+            <td>{{.FactorTwo}}</td>
+            <td>{{.Product}}</td>
+        </tr>
+        {{end}}
+    </table>
+</body>
+</html>
