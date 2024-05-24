@@ -85,7 +85,7 @@ EOF
     # Loop over the files, excluding the one with the specific commit hash
     for file in "${previous_deployments[@]}"; do
         servicename=$(basename "$file")
-        if [[ "$servicename" != "portfolio-site-$LATEST_COMMIT.service" ]]; then
+        if [[ "$servicename" != "$REPO_NAME-$LATEST_COMMIT.service" ]]; then
             echo "Deleting previous deployment: $servicename"
 
             commit_hash="${servicename#$REPO_NAME-}"
