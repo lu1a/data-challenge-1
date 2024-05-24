@@ -11,8 +11,6 @@ import (
 	"path"
 	"sync"
 	"time"
-
-	"github.com/joho/godotenv"
 )
 
 type RandomData struct {
@@ -30,9 +28,8 @@ var (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if len(os.Args) != 3 {
+		log.Fatal("Please supply the correct arguments")
 	}
 
 	listenURL := os.Args[1]

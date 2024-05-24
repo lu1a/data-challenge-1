@@ -7,5 +7,5 @@ Fill out .env
 
 then run
 ```
-go run main.go
+go run main.go -- localhost:8000 mytelegramusername
 ```
