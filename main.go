@@ -35,8 +35,14 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	listenURL := os.Getenv("LISTEN_URL")
-	myRealTelegramUsername = os.Getenv("MY_REAL_TELEGRAM_USERNAME")
+	listenURL := os.Args[1]
+	if len(listenURL) == 0 {
+		listenURL = os.Getenv("LISTEN_URL")
+	}
+	myRealTelegramUsername = os.Args[2]
+	if len(myRealTelegramUsername) == 0 {
+		myRealTelegramUsername = os.Getenv("MY_REAL_TELEGRAM_USERNAME")
+	}
 	whenLastIncludedRealEntry = generateRandomTimeLastWeek()
 
 	go generateRandomData()
