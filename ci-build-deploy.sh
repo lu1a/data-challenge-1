@@ -27,9 +27,6 @@ get_last_deployed_commit() {
 get_latest_commit() {
     git -C $REPO_FOLDER pull
     LATEST_COMMIT=$(git -C $REPO_FOLDER rev-parse HEAD)
-
-    # DEBUG
-    # echo "Latest commit on GitHub: $LATEST_COMMIT"
 }
 
 build_stage() {
