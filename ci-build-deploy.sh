@@ -32,7 +32,7 @@ get_latest_commit() {
 build_stage() {
     echo "Running build stage"
 
-    go build -C $REPO_FOLDER -o $REPO_NAME
+    /usr/local/go/bin/go build -C $REPO_FOLDER -o $REPO_NAME
     mv $RELEASE_FOLDER/$REPO_NAME $RELEASE_FOLDER/$REPO_NAME-$LATEST_COMMIT
     chmod 700 $RELEASE_FOLDER/$REPO_NAME-$LATEST_COMMIT
 }
