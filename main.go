@@ -28,7 +28,7 @@ var (
 )
 
 func main() {
-	if len(os.Args) != 3 {
+	if len(os.Args) != 4 {
 		log.Fatal("Please supply the correct arguments")
 	}
 
@@ -40,6 +40,8 @@ func main() {
 	if len(myRealTelegramUsername) == 0 {
 		myRealTelegramUsername = os.Getenv("MY_REAL_TELEGRAM_USERNAME")
 	}
+	rootPath := os.Args[3]
+
 	whenLastIncludedRealEntry = generateRandomTimeLastWeek()
 
 	go generateRandomData()
@@ -50,7 +52,7 @@ func main() {
 		randomMutex.RLock()
 		defer randomMutex.RUnlock()
 
-		fp := path.Join("templates", "index.html")
+		fp := path.Join(rootPath, "templates", "index.html")
 		tmpl, err := template.ParseFiles(fp)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)

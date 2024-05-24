@@ -61,7 +61,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=$RELEASE_FOLDER/$REPO_NAME-$LATEST_COMMIT 127.0.0.1:$new_port $MY_REAL_TELEGRAM_USERNAME
+ExecStart=$RELEASE_FOLDER/$REPO_NAME-$LATEST_COMMIT 127.0.0.1:$new_port $MY_REAL_TELEGRAM_USERNAME $REPO_FOLDER
 
 [Install]
 WantedBy=multi-user.target
