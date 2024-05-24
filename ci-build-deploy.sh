@@ -19,8 +19,6 @@ get_last_deployed_commit() {
         filename=$(basename "$file_path")
         LAST_DEPLOYED_COMMIT="${filename##*-}"
 
-        # DEBUG
-        # echo "Last deployed commit: $LAST_DEPLOYED_COMMIT"
     else
         echo "No previous deployment found."
     fi
