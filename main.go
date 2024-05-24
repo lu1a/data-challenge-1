@@ -42,7 +42,7 @@ func main() {
 	}
 	rootPath := os.Args[3]
 
-	whenLastIncludedRealEntry = generateRandomTimeLastWeek()
+	whenLastIncludedRealEntry = generateRandomTimeLastDay()
 
 	go generateRandomData()
 
@@ -95,7 +95,7 @@ func generateRandomData() {
 			randomSlice[i].Product = factorOneIncorrect * factorTwoIncorrect
 		}
 
-		if isALittleOverAWeekSince(whenLastIncludedRealEntry) {
+		if isALittleOverADaySince(whenLastIncludedRealEntry) {
 			realEntryFactorOne := randRange(1, 1000)
 			realEntryFactorTwo := randRange(1, 1000)
 			realEntry := RandomData{
@@ -134,27 +134,26 @@ func randomTelegramName(length int) string {
 	return "@" + string(s)
 }
 
-// Checks if the current time is at least one week and a random additional
-// time up to 48 hours since the given time.
-func isALittleOverAWeekSince(t time.Time) bool {
-	// Define a week as a constant duration.
-	const week = 7 * 24 * time.Hour
+// Checks if the current time is a bit over a single day (give or take a couple of hours) since the given time.
+func isALittleOverADaySince(t time.Time) bool {
+	// Define a day as a constant duration.
+	const day = 24 * time.Hour
 
-	// Generate a random additional duration up to 48 hours.
-	randomAdditionalDuration := time.Duration(rand.IntN(48)) * time.Hour
+	// Generate a random additional duration up to 4 hours.
+	randomAdditionalDuration := time.Duration(rand.IntN(4*60*60)) * time.Second
 
-	// Calculate the target time which is a week plus some random additional time since `t`.
-	targetTime := t.Add(week + randomAdditionalDuration)
+	// Calculate the target time which is a day plus some random additional time since `t`.
+	targetTime := t.Add(day + randomAdditionalDuration)
 
 	// Check if the current time is past this target time.
 	return time.Now().After(targetTime)
 }
 
-func generateRandomTimeLastWeek() time.Time {
+func generateRandomTimeLastDay() time.Time {
 	now := time.Now()
 
-	// Generate a random number of minutes up to one week (10080 minutes in a week)
-	randomMinutes := randRange(0, 10080)
+	// Generate a random number of minutes up to one day (1440 minutes in a day)
+	randomMinutes := randRange(0, 1440)
 
 	// Subtract the random number of minutes from the current time
 	randomTime := now.Add(time.Duration(-randomMinutes) * time.Minute)
