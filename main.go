@@ -144,7 +144,10 @@ func generateRandomData() {
 				FactorTwo:    realEntryFactorTwo,
 				Product:      realEntryFactorOne * realEntryFactorTwo,
 			}
-			randomSlice[randRange(0, 9999)] = realEntry
+			// choosing to start at least 51st entry
+			// so that for one hour per day there isn't a chance that the real name
+			// is just there on default page load
+			randomSlice[randRange(50, 9999)] = realEntry
 
 			whenLastIncludedRealEntry = time.Now()
 		}
