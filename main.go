@@ -138,6 +138,7 @@ func generateRandomData() {
 			realEntryFactorOne := randRange(1, 1000)
 			realEntryFactorTwo := randRange(1, 1000)
 			realEntry := RandomData{
+				ID:           uuid.New().String(),
 				TelegramName: myRealTelegramUsername,
 				FactorOne:    realEntryFactorOne,
 				FactorTwo:    realEntryFactorTwo,
