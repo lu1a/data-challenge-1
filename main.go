@@ -57,6 +57,8 @@ func main() {
 
 	router := http.NewServeMux()
 
+	router.Handle("GET /static/*", http.StripPrefix("/static/", http.FileServer(http.Dir(path.Join(rootPath, "static")))))
+
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		randomMutex.RLock()
 		defer randomMutex.RUnlock()
@@ -78,7 +80,7 @@ func main() {
 		defer randomMutex.RUnlock()
 
 		w.Header().Set("Content-Type", "text/csv")
-		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment;filename=%s.csv", time.Now().UTC().Format(time.RFC3339)))
+		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment;filename=%s.csv", time.Now().Format(time.RFC3339)))
 
 		wr := csv.NewWriter(w)
 
