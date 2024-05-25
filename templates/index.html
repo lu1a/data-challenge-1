@@ -18,9 +18,12 @@
         these hourly chunks of data.<br /><br />
         When you find my telegram username, message me using it!
         <br />
+        You can get the products of the following factors in <a href="/products-csv" target="_blank">this CSV</a>.
+        <br />
     </p>
     <table>
         <tr>
+            <th>ID</th>
             <th>Telegram Name</th>
             <th>Factor One</th>
             <th>Factor Two</th>
@@ -28,10 +31,11 @@
         </tr>
         {{range .}}
         <tr>
+            <td>{{.ID}}</td>
             <td>{{.TelegramName}}</td>
             <td>{{.FactorOne}}</td>
             <td>{{.FactorTwo}}</td>
-            <td>{{.Product}}</td>
+            <td>?</td>
         </tr>
         {{end}}
     </table>

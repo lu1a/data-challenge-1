@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
 	"html/template"
 	"log"
@@ -9,15 +10,23 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strconv"
 	"sync"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type RandomData struct {
+	ID           string
 	TelegramName string
 	FactorOne    int
 	FactorTwo    int
 	Product      int
+}
+
+func (rd *RandomData) CSVRecord() []string {
+	return []string{rd.ID, rd.TelegramName, strconv.Itoa(rd.Product)}
 }
 
 var (
@@ -64,6 +73,35 @@ func main() {
 		}
 	})
 
+	router.HandleFunc("/products-csv", func(w http.ResponseWriter, r *http.Request) {
+		randomMutex.RLock()
+		defer randomMutex.RUnlock()
+
+		w.Header().Set("Content-Type", "text/csv")
+		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment;filename=%s.csv", time.Now().UTC().Format(time.RFC3339)))
+
+		wr := csv.NewWriter(w)
+
+		lastRandomForCSV := [][]string{}
+
+		// fill out the CSV backwards just to mess with them
+		for i := len(lastRandom) - 1; i >= 0; i-- {
+			lastRandomForCSV = append(lastRandomForCSV, lastRandom[i].CSVRecord())
+		}
+
+		// write out header row, ie. column names
+		if err := wr.Write([]string{"ID", "Telegram Username", "Product"}); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// write out actual data
+		if err := wr.WriteAll(lastRandomForCSV); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	})
+
 	// Start the server
 	l, err := net.Listen("tcp", listenURL)
 	if err != nil {
@@ -85,6 +123,7 @@ func generateRandomData() {
 		randomSlice := make([]RandomData, 10000)
 		for i := range randomSlice {
 			randomSlice[i] = RandomData{
+				ID:           uuid.New().String(),
 				TelegramName: randomTelegramName(randRange(5, 20)),
 				FactorOne:    randRange(1, 1000),
 				FactorTwo:    randRange(1, 1000),
