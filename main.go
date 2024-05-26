@@ -38,7 +38,7 @@ var (
 
 func main() {
 	if len(os.Args) != 4 {
-		log.Fatal("Use like so:\n./data-challenge-1 localhost:8000 mytelegramusername /root/data-challenge-1")
+		log.Fatal("Use like so: ./data-challenge-1 localhost:8000 mytelegramusername /root/data-challenge-1")
 	}
 
 	listenURL := os.Args[1]
@@ -113,7 +113,7 @@ func main() {
 		Addr:    listenURL,
 		Handler: router,
 	}
-	fmt.Println("Server started")
+	fmt.Println(time.Now().Format(time.RFC3339), "Server started")
 	err = serv.Serve(l)
 	if err != nil {
 		log.Fatalf("Error serving: %v", err)
