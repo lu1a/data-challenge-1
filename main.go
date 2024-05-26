@@ -38,7 +38,7 @@ var (
 
 func main() {
 	if len(os.Args) != 4 {
-		log.Fatal("Please supply the correct arguments")
+		log.Fatal("Use like so:\n./data-challenge-1 localhost:8000 mytelegramusername /root/data-challenge-1")
 	}
 
 	listenURL := os.Args[1]
