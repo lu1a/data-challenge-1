@@ -2,7 +2,7 @@
 
 REPO_NAME="data-challenge-1"
 
-REPO_FOLDER="/root/${REPO_NAME}"
+REPO_FOLDER="/home/lewis/${REPO_NAME}"
 RELEASE_FOLDER="${REPO_FOLDER}"
 
 NGINX_CONFIG_FILE="/etc/nginx/sites-available/data-challenge-1.lu1.in"
